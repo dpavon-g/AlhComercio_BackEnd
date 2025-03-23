@@ -2,5 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIsController;
+use App\Http\Controllers\UsersController;
 
-Route::get('/getEstablecimientos', [APIsController::class, 'getEstablecimientos']);
+Route::get('/getNegocios', [APIsController::class, 'getNegocios']);
+Route::post('/createUser', [UsersController::class, 'createUser']);

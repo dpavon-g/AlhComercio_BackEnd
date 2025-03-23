@@ -63,31 +63,7 @@ class APIsController extends Controller
         //
     }
 
-    public function getEstablecimientos(){
-
-        // $establecimientos = [
-        //     [
-        //         'id' => 1,
-        //         'nombre' => 'Bendito Bocado',
-        //         'direccion' => 'Av. Isaac Peral, S/N, 29130 Alhaurín de la Torre, Málaga',
-        //         'telefono' => '951 62 30 12',
-        //         'Imagen' => 'https://benditobocado.com/wp-content/uploads/2022/01/2-1.jpg'
-        //     ],
-        //     [
-        //         'id' => 2,
-        //         'nombre' => 'Vadepizza',
-        //         'direccion' => 'Av. las Americas, 3, 29130 Alhaurín de la Torre, Málaga',
-        //         'telefono' => '952 96 24 03',
-        //         'Imagen' => 'https://tb-static.uber.com/prod/image-proc/processed_images/0cbddb8bb25b8868dc03e25b80b0d827/3ac2b39ad528f8c8c5dc77c59abb683d.jpeg'
-        //     ],
-        //     [
-        //         'id' => 3,
-        //         'nombre' => 'Visual Market Los Vegas Tu Óptica a Precio Justo',
-        //         'direccion' => 'Av. de los Vegas, 12, Cruz de Humilladero, 29006 Málaga',
-        //         'telefono' => '952 02 60 26',
-        //         'Imagen' => 'https://lh3.googleusercontent.com/p/AF1QipPdjgCRLKzxsh14FyQT_75VZw1jBTBXK7HFCV_3=s680-w680-h510'
-        //     ]
-        // ];
+    public function getNegocios(){
         $negocios = Negocios::all();
         return response()->json($negocios, 200, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
