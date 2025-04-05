@@ -11,34 +11,6 @@ use \Firebase\JWT\JWT;
 
 class UsersController extends Controller
 {
-    public function createUser(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email|max:255',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $validator->errors()
-            ], 400);
-        }
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User created successfully',
-            'user' => $user
-        ]);
-    }
-
     public function createJWT($user)
     {
         $secretKey = env('JWT_SECRET_KEY');
@@ -65,6 +37,37 @@ class UsersController extends Controller
     {
         $user = User::where('email', $email)->first();
         return $user;
+    }
+
+    public function createUser(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email|max:255',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors()
+            ], 400);
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $jwt = $this->createJWT($user);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User created successfully',
+            'jwt' => (string)$jwt,
+            'user' => $user
+        ]);
     }
 
     public function checkLogin(Request $request)
@@ -94,7 +97,7 @@ class UsersController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Login successful',
-            'jwt' => $jwt,
+            'jwt' => (string)$jwt,
             'user' => $user
         ]);
     }
