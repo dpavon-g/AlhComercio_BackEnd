@@ -11,6 +11,8 @@ Route::middleware([JwtMiddleware::class])->group(function () {
 });
 
 Route::post('register', [JWTAuthController::class, 'register']);
+Route::get('getUser', [JWTAuthController::class, 'getUser']);
+Route::post('logout', [JWTAuthController::class, 'logout']);
 Route::post('login', [JWTAuthController::class, 'login']);
 
 // Route::post('/createUser', [UsersController::class, 'createUser']);
