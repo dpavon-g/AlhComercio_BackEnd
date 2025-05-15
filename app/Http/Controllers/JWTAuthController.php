@@ -80,7 +80,10 @@ class JWTAuthController extends Controller
             return response()->json(['error' => 'Invalid token'], 400);
         }
 
-        return response()->json(compact('user'));
+        // Cargar los negocios relacionados
+        $user->load('negocios');
+
+        return response()->json(['user' => $user]);
     }
 
     // User logout

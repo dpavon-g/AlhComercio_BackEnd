@@ -7,5 +7,5 @@ Route::get('/', function () {
 });
 
 
-Route::get('/getEstablecimientos', [APIsController::class, 'getEstablecimientos']);
+// Route::get('/getEstablecimientos', [NegociosController::class, 'getEstablecimientos']);
 

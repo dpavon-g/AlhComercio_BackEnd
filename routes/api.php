@@ -1,13 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\APIsController;
+use App\Http\Controllers\NegociosController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\JWTAuthController;
 use App\Http\Middleware\JwtMiddleware;
 
 Route::middleware([JwtMiddleware::class])->group(function () {
-    Route::get('/getNegocios', [APIsController::class, 'getNegocios']);
+    Route::get('/getNegocios', [NegociosController::class, 'getNegocios']);
+});
+
+Route::middleware([JwtMiddleware::class])->group(function () {
+    Route::post('/createNegocio', [NegociosController::class, 'createNegocio']);
 });
 
 Route::post('register', [JWTAuthController::class, 'register']);

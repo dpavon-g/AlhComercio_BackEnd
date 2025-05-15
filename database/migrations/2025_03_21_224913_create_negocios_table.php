@@ -17,7 +17,11 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('telefono');
             $table->string('imagen');
+            $table->unsignedBigInteger('user_id'); // Añadir la columna user_id
             $table->timestamps();
+
+            // Definir la clave foránea
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
