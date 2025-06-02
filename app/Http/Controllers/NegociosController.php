@@ -12,16 +12,18 @@ class NegociosController extends Controller
         return response()->json($negocios, 200, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
-    public function createNegocio(Request $request){
-        $user = $request->user()->id;
-        $negocio = new Negocios();
-        $negocio->nombre = $request->input('nombre');
-        $negocio->direccion = $request->input('direccion');
-        $negocio->telefono = $request->input('telefono');
-        $negocio->imagen = $request->input('imagen');
-        $negocio->user_id = $user;
-        $negocio->save();
+    public function createNegocio(Request $request)
+    {
+        $validated = $request->validate([
+            'nombre'    => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'telefono'  => 'required|string|max:20',
+            'imagen'    => 'nullable|string|max:255',
+        ]);
 
+        $validated['user_id'] = $request->user()->id;
+
+        $negocio = Negocios::create($validated);
 
         return response()->json($negocio, 201, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
