@@ -46,4 +46,21 @@ class NegociosController extends Controller
         return response()->json($data, 201, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
+    public function deleteNegocio(Request $request)
+    {
+        $id = $request->query('id');
+        $negocio = Negocio::find($id);
+
+        if (!$negocio) {
+            return response()->json(['error' => 'Negocio no encontrado'], 404);
+        }
+
+        if ($request->user()->id !== $negocio->user_id) {
+            return response()->json(['error' => 'No autorizado'], 403);
+        }
+
+        $negocio->delete();
+        
+        return response()->json(['message' => 'Negocio eliminado correctamente'], 200);
+    }
 }

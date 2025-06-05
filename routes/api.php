@@ -16,6 +16,10 @@ Route::middleware([JwtMiddleware::class])->group(function () {
 });
 
 Route::middleware([JwtMiddleware::class])->group(function () {
+    Route::delete('/eliminarNegocio', [NegociosController::class, 'deleteNegocio']);
+});
+
+Route::middleware([JwtMiddleware::class])->group(function () {
     Route::get('/getNegocioByID', [NegociosController::class, 'getNegocioByID']);
 });
 
