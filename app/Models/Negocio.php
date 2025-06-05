@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Negocios extends Model
+class Negocio extends Model
 {
     protected $table = 'negocios';
 
@@ -14,7 +14,6 @@ class Negocios extends Model
         'telefono',
         'imagen',
         'user_id'
-        // otros campos
     ];
 
     public function user()

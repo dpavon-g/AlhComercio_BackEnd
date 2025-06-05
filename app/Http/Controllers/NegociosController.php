@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Negocios;
+use App\Models\Negocio;
 
 class NegociosController extends Controller
 {
     public function getNegocios(){
-        $negocios = Negocios::all();
+        $negocios = Negocio::all();
         return response()->json($negocios, 200, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
@@ -23,8 +23,27 @@ class NegociosController extends Controller
 
         $validated['user_id'] = $request->user()->id;
 
-        $negocio = Negocios::create($validated);
+        $negocio = Negocio::create($validated);
 
         return response()->json($negocio, 201, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
+
+    public function getNegocioByID(Request $request)
+    {
+        $id = $request->query('id');
+        $negocio = Negocio::find($id);
+
+        if (!$negocio) {
+            return response()->json(['error' => 'Negocio no encontrado'], 404);
+        }
+
+        $data = $negocio->toArray();
+        $data['ofertas'] = $negocio->ofertas()->get()->toArray();
+
+        $user = $request->user();
+        $data['admin'] = $user && $negocio->user_id == $user->id;
+
+        return response()->json($data, 201, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+
 }
