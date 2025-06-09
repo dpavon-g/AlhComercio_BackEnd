@@ -20,6 +20,14 @@ Route::middleware([JwtMiddleware::class])->group(function () {
 });
 
 Route::middleware([JwtMiddleware::class])->group(function () {
+    Route::delete('/eliminarOferta', [OfertasController::class, 'deleteOferta']);
+});
+
+Route::middleware([JwtMiddleware::class])->group(function () {
+    Route::post('/activarOferta', [OfertasController::class, 'activarOferta']);
+});
+
+Route::middleware([JwtMiddleware::class])->group(function () {
     Route::get('/getNegocioByID', [NegociosController::class, 'getNegocioByID']);
 });
 
